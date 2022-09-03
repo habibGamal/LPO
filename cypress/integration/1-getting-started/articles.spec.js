@@ -75,6 +75,27 @@ describe('articles', () => {
             cy.get('p').should('have.text', content);
         }
     }
+
+    it('validation on create', () => {
+        /* ==== Generated with Cypress Studio ==== */
+        GoTo.createArticle();
+        Do.submit();
+        Assert.validationOnEdit()
+        /* ==== End Cypress Studio ==== */
+    })
+
+    it('create article', () => {
+        const title = faker.word.noun();
+        const desc = faker.lorem.lines(1);
+        const content = faker.lorem.paragraph();
+        /* ==== Generated with Cypress Studio ==== */
+        GoTo.createArticle();
+        Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
+        Do.submit();
+        Assert.afterCreate(title, desc, content);
+        /* ==== End Cypress Studio ==== */
+    })
+
     it('validation on edit', () => {
         /* ==== Generated with Cypress Studio ==== */
         GoTo.readArticles();
@@ -93,29 +114,8 @@ describe('articles', () => {
         Do.clearFormFields();
         Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
         Do.submit();
-        Assert.afterEdit(title,desc,content);
+        Assert.afterEdit(title, desc, content);
         /* ==== End Cypress Studio ==== */
     })
-
-    it('validation on create', () => {
-        /* ==== Generated with Cypress Studio ==== */
-        GoTo.createArticle();
-        Do.submit();
-        Assert.validationOnEdit()
-        /* ==== End Cypress Studio ==== */
-    })
-
-    it('create article', () => {
-        const title = faker.word.noun();
-        const desc = faker.lorem.lines(1);
-        const content = faker.lorem.paragraph();
-        /* ==== Generated with Cypress Studio ==== */
-        GoTo.createArticle();
-        Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
-        Do.submit();
-        Assert.afterCreate(title,desc,content);
-        /* ==== End Cypress Studio ==== */
-    })
-
 
 })
