@@ -5,6 +5,8 @@ import { ContextApi } from './Contexts/AppContext';
 import ToggleAuthLink from './Components/ToggleAuthLink';
 import NavLink from './Components/NavLink';
 import FlashMessage from './Components/FlashMessage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faNavicon } from '@fortawesome/free-solid-svg-icons';
 
 export default function Layout(props: { children: JSX.Element }) {
 
@@ -20,12 +22,12 @@ export default function Layout(props: { children: JSX.Element }) {
     }
     const t = useTranslate();
     return (
-        <div className={`${appState.lang === 'ar' && 'rtl'} App`}>
+        <div className={`${appState.lang === 'ar' && 'rtl'} App overflow-x-hidden`}>
             <FlashMessage />
             <nav className="bg-ov-white ">
                 <div className="container flex items-center justify-between py-2">
                     <img className='w-[50px] aspect-square' src='/images/logo.png' />
-                    <ul className={`${showNav ? 'flex' : 'hidden'} nav 2xl:items-center items-start 2xl:flex gap-6 font-bold`}>
+                    <ul className={`${showNav ? 'flex' : 'hidden'} nav shadow 2xl:shadow-none 2xl:items-center items-start 2xl:flex gap-6 font-bold`}>
                         <NavLink onClick={hideNav} href="/" name={t('الرئيسية', 'Home')} />
                         <NavLink onClick={hideNav} href="/about" name={t('عنا', 'About')} />
                         <NavLink onClick={hideNav} href="/images_show" name={t('الصور', 'Images')} />
@@ -43,8 +45,8 @@ export default function Layout(props: { children: JSX.Element }) {
                             }
                         </li>
                     </ul>
-                    <button className='2xl:hidden' onClick={() => setShowNav(!showNav)}>
-                        {/* <FontAwesomeIcon icon={faNavicon} size="2x" /> */}
+                    <button id='navbars' className='2xl:hidden' onClick={() => setShowNav(!showNav)}>
+                        <FontAwesomeIcon icon={faNavicon} size="2x" />
                     </button>
                 </div>
             </nav>

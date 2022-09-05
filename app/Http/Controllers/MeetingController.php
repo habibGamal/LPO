@@ -67,7 +67,8 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        //
+
+        return Inertia::render('Meetings/Single', ['meetingDB' => $meeting]);
     }
 
     /**
@@ -102,19 +103,22 @@ class MeetingController extends Controller
         if (isset($request->removedAssets))
             foreach ($request->removedAssets as $asset) {
                 Storage::delete('/public/images/' . $asset);
-                unset($assetsNames[array_search($asset,$assetsNames)]);
+                unset($assetsNames[intval(array_search($asset, $assetsNames))]);
             }
         // add new assets
         if ($request->hasFile('assets'))
             foreach ($request->file('assets') as $imagefile)
                 $assetsNames[] = saveImageAndGetPath($imagefile);
-
+        // ensure assetsNames is array with 1D
+        $assetsNamesArray = [];
+        foreach ($assetsNames as $key => $value)
+            $assetsNamesArray[] = $value;
 
         $meeting->name = $request->input('name');
         $meeting->link = $request->input('meeting_link');
         $meeting->date = date('Y-m-d H:i:s', strtotime($request->input('date')));
         $meeting->state = $request->input('state');
-        $meeting->assets = json_encode($assetsNames);
+        $meeting->assets = json_encode($assetsNamesArray);
         $meeting->save();
         return Redirect::route('meetings.create');
     }

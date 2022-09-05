@@ -43,7 +43,7 @@ export default function Login() {
                     </Form.Item>
                     <Form.Item className='text-center mb-0'>
                         <Button type="primary" htmlType="submit" className="login-form-button mx-auto">
-                            Log in
+                            Login
                         </Button>
                     </Form.Item>
                 </Form>

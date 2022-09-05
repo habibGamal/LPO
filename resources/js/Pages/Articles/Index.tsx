@@ -1,9 +1,10 @@
 import React from 'react'
 import { EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Card } from 'antd';
+import { Avatar, Badge, Card, Popconfirm } from 'antd';
 import { Article, ArticleDB } from '../../Models/Article';
 import { Link } from '@inertiajs/inertia-react';
 import { motion } from "framer-motion"
+import { Inertia } from '@inertiajs/inertia';
 export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
     const { Meta } = Card;
     const articles = articlesDB.map(article => new Article(article));
@@ -25,7 +26,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                 </div>
             </section>
             <div className="container my-16">
-                <div className="flex gap-4 flex-wrap items-start">
+                <div className="flex gap-4 justify-evenly flex-wrap items-start">
                     {
                         articles.map(
                             article =>
@@ -39,9 +40,15 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                         />
                                     }
                                     actions={[
-                                        <Link href={`/articles/${article.id}`} method="delete" as="button">
+                                        <Popconfirm
+                                            title="Are you sure to delete this article?"
+                                            onConfirm={() => Inertia.delete(`/articles/${article.id}`)}
+                                            okText="Yes"
+                                            cancelText="No"
+                                        >
                                             <DeleteOutlined key="delete" />
-                                        </Link>,
+                                        </Popconfirm>
+                                        ,
                                         <Link href={`/articles/${article.id}/edit`}>
                                             <EditOutlined key="edit" />
                                         </Link>,

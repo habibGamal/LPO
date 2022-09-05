@@ -1,11 +1,11 @@
-import { Meeting as MeetingModel } from "../../Models/Meeting"
+import { Meeting as MeetingModel, MeetingDB } from "../../Models/Meeting"
 import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import React from "react";
 import { Link } from "@inertiajs/inertia-react";
 import useTranslate from "../../Hooks/useTranslate";
-export default function Index() {
-    const [meetings, setMeetings] = useState<MeetingModel[]>([]);
+export default function Index({ meetingsDB }: { meetingsDB: MeetingDB[] }) {
+    const meetings = meetingsDB.map(meeting => new MeetingModel(meeting));
     useEffect(() => {
         // const getMeetings = async () => {
         //     const promiseMeetings = await api.get<{ id: number, name: string, link: string, state: string, date: string, assets: string }[]>('meeting/index')
@@ -52,11 +52,11 @@ const Meeting = ({ meeting }: { meeting: MeetingModel }) => (
             <span className="text-xl font-bold block">{meeting.name}</span>
             {
                 meeting.state !== 'ended' &&
-                <a target="_blank" href={meeting.link} className="rounded bg-second hover:bg-main text-white shadow font-sans p-2">Join Meeting</a>
+                <a target="_blank" href={meeting.link} className="rounded bg-second hover:bg-main hover:text-white text-white shadow font-sans p-2">Join Meeting</a>
             }
             {
                 meeting.state === 'ended' &&
-                <Link href={`/meeting_${meeting.id}`} className="rounded bg-second hover:bg-main text-white shadow font-sans p-2">
+                <Link href={`/meetings/${meeting.id}`} className="rounded bg-second hover:bg-main hover:text-white text-white shadow font-sans p-2">
                     Show Meeting
                 </Link>
             }

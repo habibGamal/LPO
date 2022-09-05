@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Meeting as MeetingModel } from '../Models/Meeting';
 import { PlusOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Button, DatePicker, Form, Input, Select, Upload, UploadFile, UploadProps } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Upload, UploadFile, UploadProps, message, Popconfirm } from 'antd';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia';
 import { Option } from 'antd/lib/mentions';
@@ -15,6 +15,7 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
     const [form] = Form.useForm();
     const flashMessage = useFlashMessage();
     const { errors } = usePage().props;
+    const [loading, setLoading] = useState(false);
     const [fileList, setFileList] = useState<UploadFile[]>(
         meeting ? meeting.assets.map((asset, i) =>
         ({
@@ -53,13 +54,16 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
             preserveScroll: true,
             forceFormData: true,
             onSuccess: () => {
-                flashMessage({
-                    message:'Meeting has been added succesfuly',
-                    type:'success'
-                });
+                message.success('Meeting has been added succesfuly')
                 form.resetFields();
                 setFileList([]);
             },
+            onProgress: () => {
+                setLoading(true)
+            },
+            onFinish: () => {
+                setLoading(false)
+            }
         })
     };
     const update = (values: any) => {
@@ -78,10 +82,13 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
             errorBag: `${meeting!.id}`,
             preserveScroll: true,
             onSuccess: () => {
-                flashMessage({
-                    message:'Meeting updated succesfuly',
-                    type:'success'
-                });
+                message.success('Meeting updated succesfuly')
+            },
+            onProgress: () => {
+                setLoading(true)
+            },
+            onFinish: () => {
+                setLoading(false)
             }
         });
     };
@@ -93,7 +100,7 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
                 <FontAwesomeIcon icon={faCaretRight} /> {meeting ? meeting.name : 'Make a new meeting'}
                 <Form
                     form={form}
-                    name="basic"
+                    name={meeting ? `edit_${meeting.id}` : "new"}
                     className="max-w-[500px] mx-auto"
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 16 }}
@@ -159,16 +166,23 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading={loading}>
                             Save
                         </Button>
                     </Form.Item>
                 </Form>
                 {
                     meeting &&
-                    <Link href={`/meetings/${meeting.id}`} method="delete" as="button" className="ant-btn ant-btn-link ant-btn-dangerous">
-                        Delete
-                    </Link>
+                    <Popconfirm
+                        title="Are you sure to delete this meeting?"
+                        onConfirm={() => Inertia.delete(`/meetings/${meeting.id}`)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <span className="ant-btn ant-btn-link ant-btn-dangerous">
+                            Delete
+                        </span>
+                    </Popconfirm>
                 }
             </div>
         </>

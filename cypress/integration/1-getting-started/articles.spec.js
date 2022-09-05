@@ -12,25 +12,28 @@ import { faker } from '@faker-js/faker';
 // https://on.cypress.io/introduction-to-cypress
 
 describe('articles', () => {
-
-    const images = ['img1.jpg', 'img2.png', 'img3.jpg']
-    beforeEach(() => {
-        // Cypress starts out with a blank slate for each test
-        // so we must tell it to visit our website with the `cy.visit()` command.
-        // Since we want to visit the same URL at the start of all our tests,
-        // we include it in our beforeEach function so that it runs before each test
-        cy.visit('http://127.0.0.1:8000/')
-    })
     // helpers
     const GoTo = {
-        readArticles: () => {
-            cy.get('.ant-menu-submenu-title > .ant-menu-title-content').click();
-            cy.get('.ant-menu-item:nth-child(2) > .ant-menu-title-content > a').click();
+        home: () => {
+            cy.get('.svg-inline--fa').click();
+            cy.get('a').contains('Home').click();
+        },
+        dashboard: () => {
+            cy.get('.svg-inline--fa').click();
+            cy.get('a').contains('Dashboard').click();
+        },
+        editArticle: () => {
+            cy.get('.svg-inline--fa').click();
+            cy.get('a').contains('Articles').click();
             cy.get(':nth-child(1) > .ant-card-actions > :nth-child(2) > :nth-child(1) > a').click();
         },
+        readArticles: () => {
+            cy.get('.svg-inline--fa').click();
+            cy.get('a').contains('Articles').click();
+        },
         createArticle: () => {
-            cy.get('.ant-menu-submenu-title > .ant-menu-title-content').click();
-            cy.get('.ant-menu-item:nth-child(1) > .ant-menu-title-content > a').click();
+            GoTo.dashboard();
+            cy.get('[href="/articles/create"]').click();
         }
     }
     const Do = {
@@ -48,6 +51,20 @@ describe('articles', () => {
             cy.get('input[type="file"]').attachFile(image);
             cy.get('#basic_description').type(desc);
             cy.get('.jodit-wysiwyg').type(content);
+        },
+        login: () => {
+            cy.get('.svg-inline--fa').click();
+            cy.get('a').contains('Login').click();
+            cy.get('#normal_login_email').clear();
+            cy.get('#normal_login_email').type('maha@admin.com');
+            cy.get('#normal_login_password').clear();
+            cy.get('#normal_login_password').type('12345678');
+            cy.get('.ant-btn > span').click();
+            cy.get('.ant-form-item-explain-error').should('have.text', 'Wrong credentials , make sure that your email & password is correct');
+            cy.get('#normal_login_password').clear();
+            cy.get('#normal_login_password').type('12345');
+            cy.get('button').contains('Login').click();
+            cy.get('.svg-inline--fa').click();
         }
     }
     const Assert = {
@@ -75,47 +92,71 @@ describe('articles', () => {
             cy.get('p').should('have.text', content);
         }
     }
+    const images = ['img1.jpg', 'img2.png', 'img3.jpg']
 
-    it('validation on create', () => {
-        /* ==== Generated with Cypress Studio ==== */
-        GoTo.createArticle();
-        Do.submit();
-        Assert.validationOnEdit()
-        /* ==== End Cypress Studio ==== */
+    before(() => {
+        cy.visit('http://127.0.0.1:8000/')
+    })
+    const tests = {
+        createArticle: () => {
+            const title = faker.word.noun();
+            const desc = faker.lorem.lines(1);
+            const content = faker.lorem.paragraph();
+            /* ==== Generated with Cypress Studio ==== */
+            GoTo.createArticle();
+            Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
+            Do.submit();
+            Assert.afterCreate(title, desc, content);
+            GoTo.createArticle();
+        },
+        validateCreateArticle: () => {
+            GoTo.createArticle();
+            Do.submit();
+            Assert.validationOnEdit()
+        },
+        validateEditArticle: () => {
+
+            GoTo.editArticle();
+            Do.clearFormFields();
+            Do.submit();
+            Assert.validationOnEdit()
+        },
+        editArticle: () => {
+            const title = faker.word.noun();
+            const desc = faker.lorem.lines(1);
+            const content = faker.lorem.paragraph();
+            GoTo.editArticle();
+            Do.clearFormFields();
+            Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
+            Do.submit();
+            Assert.afterEdit(title, desc, content);
+        },
+        deleteArticles: () => {
+            cy.get(':nth-child(1) > .ant-card-actions > :nth-child(1) > :nth-child(1)').click();
+        }
+    }
+
+    it('login', () => {
+        Do.login();
     })
 
-    it('create article', () => {
-        const title = faker.word.noun();
-        const desc = faker.lorem.lines(1);
-        const content = faker.lorem.paragraph();
+    it('test', () => {
+
         /* ==== Generated with Cypress Studio ==== */
-        GoTo.createArticle();
-        Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
-        Do.submit();
-        Assert.afterCreate(title, desc, content);
-        /* ==== End Cypress Studio ==== */
+
+        for (let i = 1; i <= 5; i++) {
+            tests.createArticle();
+        }
+        tests.validateCreateArticle();
+        tests.editArticle();
+        tests.validateEditArticle();
+        // for (let i = 1; i <= 5; i++) {
+        //     GoTo.readArticles();
+        //     cy.wait(1000)
+        //     cy.get(`:nth-child(1) > .ant-card-actions > :nth-child(1) > :nth-child(1)`).click()
+        // }
     })
 
-    it('validation on edit', () => {
-        /* ==== Generated with Cypress Studio ==== */
-        GoTo.readArticles();
-        Do.clearFormFields();
-        Do.submit();
-        Assert.validationOnEdit()
-        /* ==== End Cypress Studio ==== */
-    })
 
-    it('edit', () => {
-        /* ==== Generated with Cypress Studio ==== */
-        const title = faker.word.noun();
-        const desc = faker.lorem.lines(1);
-        const content = faker.lorem.paragraph();
-        GoTo.readArticles();
-        Do.clearFormFields();
-        Do.fillInputs(title, images[faker.datatype.number({ min: 0, max: images.length - 1 })], desc, content);
-        Do.submit();
-        Assert.afterEdit(title, desc, content);
-        /* ==== End Cypress Studio ==== */
-    })
 
 })
