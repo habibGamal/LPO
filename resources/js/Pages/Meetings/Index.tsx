@@ -6,17 +6,6 @@ import { Link } from "@inertiajs/inertia-react";
 import useTranslate from "../../Hooks/useTranslate";
 export default function Index({ meetingsDB }: { meetingsDB: MeetingDB[] }) {
     const meetings = meetingsDB.map(meeting => new MeetingModel(meeting));
-    useEffect(() => {
-        // const getMeetings = async () => {
-        //     const promiseMeetings = await api.get<{ id: number, name: string, link: string, state: string, date: string, assets: string }[]>('meeting/index')
-        //     if (promiseMeetings.status !== 200) {
-        //         throw Error('error fetching meetings');
-        //     }
-        //     const meetingModels = promiseMeetings.data.map(meeting => new MeetingModel(meeting.id, meeting.name, meeting.link, meeting.state, meeting.date, meeting.assets));
-        //     setMeetings(meetingModels);
-        // }
-        // getMeetings();
-    }, [])
     const t = useTranslate();
     return (
         <>

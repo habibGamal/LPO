@@ -1,15 +1,39 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 export default function AboutProgram() {
+    const [typeing, setTyping] = useState('');
+    const sentence =
+        `
+    البرنامج جزء من متطلبات الحصول على درجة دكتوراة في الفلسفة في التربية النوعية تخصص التربية الموسيقية ( بيانو )
+
+    تحت عنوان
+
+    " برنامج قائم على التعليم المدمج لرفع مستوى أداء الطلاب على آلة البيانو "
+    `
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTyping(
+                text => {
+                    if (text.length < sentence.length)
+                        return text + sentence[text.length]
+                    clearInterval(interval);
+                    return text;
+                }
+            )
+        }, 10)
+    }, []);
     return (
         <div className="container rtl py-8">
             <h1 className="text-4xl border-b-2 border-main w-fit pb-4 font-sans mx-auto mb-4 text-center">فكرة البرنامج</h1>
             <h2 className="text-center text-3xl font-bold font-sans">م.م/ مها أحمد قاسم </h2>
             <h3 className="text-3xl p-4 leading-tight border-2 rounded border-main bg-gray-50 w-fit pb-4 font-sans mx-auto my-8 text-center">
+                {typeing}
+                {/* `
                 البرنامج جزء من متطلبات الحصول على درجة دكتوراة في الفلسفة في التربية النوعية تخصص التربية الموسيقية ( بيانو )
                 <br />
                 تحت عنوان
                 <br />
                 " برنامج قائم على التعليم المدمج لرفع مستوى أداء الطلاب على آلة البيانو "
+                ` */}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-1 gap-8 ">

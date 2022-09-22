@@ -1,14 +1,16 @@
-import { Link } from '@inertiajs/inertia-react'
-import React, { useContext, useState } from 'react'
+import { Link, usePage } from '@inertiajs/inertia-react'
+import React, { useContext, useEffect, useState } from 'react'
 import useTranslate from './Hooks/useTranslate';
 import { ContextApi } from './Contexts/AppContext';
-import ToggleAuthLink from './Components/ToggleAuthLink';
 import NavLink from './Components/NavLink';
 import FlashMessage from './Components/FlashMessage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNavicon } from '@fortawesome/free-solid-svg-icons';
+import Auth from './Components/Auth';
+import NotAuth from './Components/NotAuth';
 
 export default function Layout(props: { children: JSX.Element }) {
+    const { auth } = usePage().props;
 
     const [showNav, setShowNav] = useState(false);
     const [appState, setAppState] = useContext(ContextApi)!;
@@ -22,11 +24,13 @@ export default function Layout(props: { children: JSX.Element }) {
     }
     const t = useTranslate();
     return (
-        <div className={`${appState.lang === 'ar' && 'rtl'} App overflow-x-hidden`}>
+        <div className={`${appState.lang === 'ar' && 'rtl'} App `}>
             <FlashMessage />
             <nav className="bg-ov-white ">
                 <div className="container flex items-center justify-between py-2">
-                    <img className='w-[50px] aspect-square' src='/images/logo.png' />
+                    <Link href='/'>
+                        <img className='w-[50px]' src='/images/Logo.png' />
+                    </Link>
                     <ul className={`${showNav ? 'flex' : 'hidden'} nav shadow 2xl:shadow-none 2xl:items-center items-start 2xl:flex gap-6 font-bold`}>
                         <NavLink onClick={hideNav} href="/" name={t('الرئيسية', 'Home')} />
                         <NavLink onClick={hideNav} href="/about" name={t('عنا', 'About')} />
@@ -37,8 +41,13 @@ export default function Layout(props: { children: JSX.Element }) {
                         <NavLink onClick={hideNav} href="/quiz" name={t('الامتحانات', 'Quiz')} />
                         <NavLink onClick={hideNav} href="/meetings" name={t('جلسات زووم', 'Zoom Meetings')} />
                         <NavLink onClick={hideNav} href="/about-program" name={t('عن البرنامج', 'About Program')} />
-                        <NavLink onClick={hideNav} href="/dashboard" name={t('عن البرنامج', 'Dashboard')} />
-                        <ToggleAuthLink />
+                        <Auth>
+                            <NavLink onClick={hideNav} href="/dashboard" name={t('لوحة التحكم', 'Dashboard')} />
+                            <NavLink onClick={hideNav} href="/logout" name={t('تسجيل الخروج', 'Logout')} />
+                        </Auth>
+                        <NotAuth>
+                            <NavLink onClick={hideNav} href="/login" name={t('تسجيل الدخول', 'Login')} />
+                        </NotAuth>
                         <li onClick={toggleLanguage} className="text-lg font-open-sans rounded border-second border px-1 hover:bg-second hover:text-white cursor-pointer transition-colors">
                             {
                                 appState.lang === 'ar' ? 'English' : 'Arabic'
@@ -51,6 +60,11 @@ export default function Layout(props: { children: JSX.Element }) {
                 </div>
             </nav>
             {props.children}
+            <footer className="bg-black text-white p-4 text-center">
+                All Copyrights &copy; reserved for Turing company 2022
+                <br />
+                Eng.Habib Gamal
+            </footer>
         </div>
     )
 }

@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::resource('articles', ArticleController::class)->except('index');
+    Route::resource('articles', ArticleController::class)->except(['index','show']);
     Route::resource('books', BookController::class)->except('index');
     Route::resource('meetings', MeetingController::class)->except(['index','show']);
 });
@@ -43,6 +43,7 @@ Route::get('/images_show', function () {
 
 
 Route::get('/articles', [ArticleController::class,'index'])->name('articles.index');
+Route::get('/articles/{article}', [ArticleController::class,'show'])->name('articles.show');
 Route::get('/books', [BookController::class,'index'])->name('books.index');
 Route::get('/meetings', [MeetingController::class,'index'])->name('meetings.index');
 Route::get('/meetings/{meeting}', [MeetingController::class,'show'])->name('meetings.show');
@@ -65,3 +66,4 @@ Route::any('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'authenticate']);
+Route::get('/logout', [AuthController::class, 'logout']);

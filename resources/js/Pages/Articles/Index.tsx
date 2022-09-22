@@ -2,12 +2,13 @@ import React from 'react'
 import { EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Card, Popconfirm } from 'antd';
 import { Article, ArticleDB } from '../../Models/Article';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import { motion } from "framer-motion"
 import { Inertia } from '@inertiajs/inertia';
 export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
     const { Meta } = Card;
     const articles = articlesDB.map(article => new Article(article));
+    const { auth } = usePage().props;
     return (
         <>
             <section className="bg-ov-white">
@@ -39,7 +40,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                             src={article.cover}
                                         />
                                     }
-                                    actions={[
+                                    actions={auth ? [
                                         <Popconfirm
                                             title="Are you sure to delete this article?"
                                             onConfirm={() => Inertia.delete(`/articles/${article.id}`)}
@@ -52,10 +53,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                         <Link href={`/articles/${article.id}/edit`}>
                                             <EditOutlined key="edit" />
                                         </Link>,
-                                        <Badge count={5} size="small">
-                                            <EyeOutlined key="visits" />
-                                        </Badge>
-                                    ]}
+                                    ] : []}
                                 >
                                     <Link href={`/articles/${article.id}`}>
                                         <Meta
