@@ -38,15 +38,14 @@ export default function Index({ booksDB }: { booksDB: BookDB[] }) {
             </section>
             <div className="move-sections-container">
                 {/* <div className="moving-sections"> */}
-                <section className={`container moving-section prev ${screen === Screen.Books ? 'current' : ''}`}>
+                <section className={`container moving-section screen-1 ${screen === Screen.Books ? 'current' : ''}`}>
                     <div className="box-out">
                         {
                             books.map(book => <div key={book.id} onClick={() => toVideos(book)} style={{ backgroundImage: `url("${book.cover}")` }} className="book books-1"></div>)
                         }
                     </div>
                 </section>
-
-                <section className={`container my-8 moving-section next ${screen === Screen.Videos ? 'current' : ''}`}>
+                <section className={`container my-8 moving-section screen-2 ${screen === Screen.Videos ? 'current' : ''}`}>
                     {currentBook ? <VideosScreen book={currentBook!} /> : ''}
                     <button onClick={toBooks} className="btn block my-4 mx-auto">Back to books</button>
                 </section>

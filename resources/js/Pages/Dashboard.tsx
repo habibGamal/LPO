@@ -9,20 +9,22 @@ export default function Dashboard() {
             <div className="flex flex-wrap  gap-4 justify-evenly mt-16">
                 <Link href="/books/create">
                     <div className="rounded hover:scale-110 transition-transform cursor-pointer bg-ov-white p-4 shadow-sm max-w-[400px]">
-                        <img className="w-full" src="./images/material.png" alt="" />
+                        <img className="w-full aspect-square object-contain" src="./images/material.png" alt="" />
                     </div>
                 </Link>
                 <Link href="/meetings/create">
                     <div className="rounded hover:scale-110 transition-transform cursor-pointer bg-ov-white p-4 shadow-sm max-w-[400px]">
-                        <img className="w-full" src="./images/meeting.jpg" alt="" />
+                        <img className="w-full aspect-square object-contain" src="./images/meeting.jpg" alt="" />
                     </div>
                 </Link>
-                <div className="rounded hover:scale-110 transition-transform cursor-pointer flex items-center bg-ov-white p-4 shadow-sm max-w-[400px]">
-                    <img className="w-full" src="./images/quiz.png" alt="" />
-                </div>
+                <Link href="/display-scores">
+                    <div className="rounded hover:scale-110 transition-transform cursor-pointer flex items-center bg-ov-white p-4 shadow-sm max-w-[400px]">
+                        <img className="w-full aspect-square object-contain" src="./images/quiz.png" alt="" />
+                    </div>
+                </Link>
                 <Link href="/articles/create">
                     <div className="rounded hover:scale-110 transition-transform cursor-pointer bg-ov-white p-4 shadow-sm max-w-[400px]">
-                        <img className="w-full" src="./images/articles.png" alt="" />
+                        <img className="w-full aspect-square object-contain" src="./images/articles.png" alt="" />
                     </div>
                 </Link>
             </div>

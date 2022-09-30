@@ -108,6 +108,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        Storage::delete($article->cover);
         $article->delete();
         return Redirect::route('articles.index');
     }

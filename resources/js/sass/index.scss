@@ -157,23 +157,28 @@ ol {
     }
 }
 .move-sections-container {
-    position: relative;
+    // position: relative;
     overflow-x: clip;
+    display: grid;
+    grid-template-columns: 100% 100%;
     .moving-section {
         width: 100%;
-        position: absolute;
-        transform: translateX(-50%);
+        position: relative;
+        // transform: translateX(-50%);
         transition: left 300ms ease-in-out;
     }
 
-    .moving-section.prev {
-        left: -150%;
+    .moving-section.screen-1.current {
+        left: 0%;
     }
-    .moving-section.next {
-        left: 150%;
+    .moving-section.screen-1 {
+        left: -100%;
     }
-    .moving-section.current {
-        left: 50%;
+    .moving-section.screen-2.current {
+        left: -100%;
+    }
+    .moving-section.screen-2 {
+        left: 100%;
     }
 }
 

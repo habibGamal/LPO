@@ -40,6 +40,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                             src={article.cover}
                                         />
                                     }
+                                    dir="rtl"
                                     actions={auth ? [
                                         <Popconfirm
                                             title="Are you sure to delete this article?"

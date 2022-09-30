@@ -30,14 +30,14 @@ const Choice = ({ qId, id, setValue, value, currentValue, correction = undefined
 
     return (
         <>
-            <label htmlFor={id} className="flex cursor-pointer items-center gap-2 text-xl relative">
-                <span className="flex justify-center items-center w-5 aspect-square border bg-white border-main">
+            <label htmlFor={id} className="flex cursor-pointer items-center gap-2 text-xl ">
+                <span className="relative flex justify-center items-center w-5 aspect-square border bg-white border-main">
                     <FontAwesomeIcon icon={faCheck} className={check} size='sm' />
+                    <input required className="absolute top-1 right-0 z-[-1]" onChange={(e) => setValue(e.target.value)} id={id} type="radio" name={qId} value={id} />
                 </span>
                 <span className={correct}>
                     {value}
                 </span>
-                <input className="absolute top-1 right-0 z-[-1]" onChange={(e) => setValue(e.target.value)} id={id} type="radio" name={qId} value={id} />
             </label>
         </>
     )
