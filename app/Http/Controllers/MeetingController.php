@@ -44,6 +44,8 @@ class MeetingController extends Controller
             'meeting_link' => ['required', 'string'],
             'date' => ['required', 'date'],
             'state' => ['required', Rule::in(['not_started', 'in_meeting', 'ended']),],
+            'videos' => ['array', 'nullable'],
+            'videos.*' => ['string']
         ]);
         $assetsNames = [];
         if ($request->hasFile('assets'))
@@ -52,9 +54,10 @@ class MeetingController extends Controller
         Meeting::create([
             'name' => $request->input('name'),
             'link' => $request->input('meeting_link'),
-            'date' => date('Y-m-d H:i:s', strtotime($request->input('date'))),
+            'date' => $request->input('date'),
             'state' => $request->input('state'),
             'assets' => json_encode($assetsNames),
+            'videos' => json_encode($request->input('videos')),
         ]);
         return Redirect::route('meetings.create');
     }
@@ -96,6 +99,8 @@ class MeetingController extends Controller
             'meeting_link' => ['required', 'string'],
             'date' => ['required', 'date'],
             'state' => ['required', Rule::in(['not_started', 'in_meeting', 'ended']),],
+            'videos' => ['array', 'nullable'],
+            'videos.*' => ['string']
         ]);
         $assetsNames = json_decode($meeting->assets);
 
@@ -116,9 +121,10 @@ class MeetingController extends Controller
 
         $meeting->name = $request->input('name');
         $meeting->link = $request->input('meeting_link');
-        $meeting->date = date('Y-m-d H:i:s', strtotime($request->input('date')));
+        $meeting->date = $request->input('date');
         $meeting->state = $request->input('state');
         $meeting->assets = json_encode($assetsNamesArray);
+        $meeting->videos = json_encode($request->input('videos'));
         $meeting->save();
         return Redirect::route('meetings.create');
     }

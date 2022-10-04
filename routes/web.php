@@ -59,12 +59,12 @@ Route::prefix('/quiz')->group(function () {
         return Inertia::render('Quiz');
     });
     Route::get('/pre-exam', function () {
-        return Inertia::render('QuizSamples/Exam', ['examType' => 'pre']);
-        // return redirect()->back();
+        // return Inertia::render('QuizSamples/Exam', ['examType' => 'pre']);
+        return redirect()->back();
     });
     Route::get('/post-exam', function () {
-        return Inertia::render('QuizSamples/Exam', ['examType' => 'post']);
-        // return redirect()->back();
+        // return Inertia::render('QuizSamples/Exam', ['examType' => 'post']);
+        return redirect()->back();
     });
     Route::post('/check-exam', [ExamController::class, 'checking']);
 });

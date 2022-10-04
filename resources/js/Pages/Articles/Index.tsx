@@ -5,20 +5,25 @@ import { Article, ArticleDB } from '../../Models/Article';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { motion } from "framer-motion"
 import { Inertia } from '@inertiajs/inertia';
+import useTranslate from '../../Hooks/useTranslate';
 export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
     const { Meta } = Card;
     const articles = articlesDB.map(article => new Article(article));
     const { auth } = usePage().props;
+    const t = useTranslate();
     return (
         <>
             <section className="bg-ov-white">
-                <div className="container lg:py-16 py-4 grid grid-rows-auto gap-4 text-center lg:text-left lg:grid-cols-2 items-center justify-between">
+            <div className="container lg:py-16 py-4 grid grid-rows-auto gap-4 text-center lg:text-align-inherit lg:grid-cols-2 items-center justify-between">
                     <div>
                         <motion.h3 initial={{ x: -300, opacity: 0 }} transition={{ duration: 1, type: 'spring' }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} className="text-3xl md:text-4xl lg:text-5xl mb-4 lg:mb-8  font-bold uppercase">
-                            Read our <br /> <span className="highlight-header"> articles</span>
+                            {t('اقراء','Read our')} <br /> <span className="highlight-header"> {t('مقالاتنا','articles')}</span>
                         </motion.h3>
                         <motion.p initial={{ x: -300, opacity: 0 }} transition={{ duration: 1, delay: .5, type: 'spring' }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} className="text-xl font-[500]">
-                            Enjoy the flexibility of the powerful features of Zoom Web Conferencing and get access directly through MasterStudy LMS thanks to Zoom integration. Schools and Universities can enhance their virtual programs by allowing their learners to access high-quality video sessions through desktop and mobile. Create and manage Zoom Meetings directly from your LMS!
+                            {t(
+                                'قد تعتقد أنه من المستحيل أن تصبح عازفاً ماهراً على البيانو بدون سنوات من دروس العزف غالية الثمن، ولكن هذا ليس هو الحال بالضرورة، إذ يمكنك تعلم العزف على البيانو بنفسك، إذ يعتبر العزف على البيانو شيئاً مفيداً للصحة؛ حيث أن تلقّي دروس البيانو والعزف عليه يساعدان على تحسين وعيك السمعي، وفي هذه المقالات سنذكر لك أهم الأساسيات لتعلم كيفية العزف على البيانو.',
+                                'You may think that it is impossible to become a good piano player without years of expensive playing lessons, but this is not necessarily the case. You can learn to play the piano on your own. Playing the piano is good for your health; Taking piano lessons and playing it helps improve your auditory awareness, and in these articles we will mention the most important basics for learning how to play the piano.'
+                            )}
                         </motion.p>
                     </div>
                     <div className="h-[400px]">

@@ -19,7 +19,12 @@ class ArticleController extends Controller
     public function index()
     {
         return Inertia::render('Articles/Index', [
-            'articlesDB' => Article::all()->except('content'),
+            'articlesDB' => Article::all([
+                'id',
+                'title',
+                'cover',
+                'description'
+            ]),
         ]);
     }
 

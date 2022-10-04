@@ -2,6 +2,10 @@ import { motion } from "framer-motion"
 import { useEffect, useState } from "react";
 import React from "react";
 import useTranslate from "../Hooks/useTranslate";
+import { Inertia } from "@inertiajs/inertia";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import Contact from "./Contact";
 const NUMBER_OF_SLIDES = 3
 export default function Home() {
     const [activeSlide, setSlide] = useState(1);
@@ -38,7 +42,8 @@ export default function Home() {
                                 initial={{ x: -350, opacity: 0 }}
                                 transition={{ duration: 1.5, delay: .4, type: 'spring' }}
                                 animate={{ x: 0, opacity: 1 }}
-                                className="btn">
+                                className="btn"
+                                onClick={() => Inertia.get('/about')}>
                                 Go
                             </motion.button>
                         </div>
@@ -60,7 +65,12 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         className="text-xl font-[500]">
-                        Enjoy the flexibility of the powerful features of Zoom Web Conferencing and get access directly through MasterStudy LMS thanks to Zoom integration. Schools and Universities can enhance their virtual programs by allowing their learners to access high-quality video sessions through desktop and mobile. Create and manage Zoom Meetings directly from your LMS!
+                        {
+                            t(
+                                'ZOOM Cloud Meetings هو التطبيق المثالي لإجراء محادثات فيديو مهمة في مكان العمل. تم تصميم هذا التطبيق خصيصًا لإدارة الاجتماعات اليومية بطريقة فعالة ومنظمة ، دون القلق بشأن الجودة. بفضل هذا التطبيق ، سيكون لديك محادثات فيديو احترافية بغض النظر عن مكان وجودك. إحدى الميزات التي تميز ZOOM Cloud Meetings هي أنه يمنحك دفتر يوميات يمكّنك من جدولة اجتماعاتك بإحكام. يمكنك أيضًا إضافة إشعارات لتذكيرك بالدردشة المرئية المباشرة من هذه المجلة حتى تتمكن من المتابعة إلى اجتماعاتك دون تعقيدات. عند إجراء محادثة فيديو ، يمكنك استخدام الكاميرا الأمامية أو الخلفية لجهازك ، كما يمكنك تشغيل الميكروفون أو إيقاف تشغيله ، والتعديلات الأساسية الأخرى للحصول على أفضل نتيجة ممكنة. يمكنك أيضًا رؤية اسم الشخص الذي ستلتقي به وحتى تسجيل تفاصيل الاجتماع. يمكنك دعوة أشخاص آخرين إلى اجتماعاتك برابط واحد ، أو برنامج عن بعد مع مستخدمين آخرين تريد التواصل معهم ، وحتى تقييد الوصول إلى اجتماعاتك. يعد ZOOM Cloud Meetings ، باختصار ، تطبيقًا مثاليًا لإدارة الأعمال دون القلق بشأن جودتها أو جودتها.',
+                                'ZOOM Cloud Meetings is the perfect app for making important workplace video chats. This application is specially designed to manage daily meetings in an efficient and organized manner, without worrying about quality. Thanks to this application, you will have professional video chats no matter where you are. One of the features that distinguishes ZOOM Cloud Meetings is that it gives you a diary that enables you to schedule your meetings tightly. You can also add notifications reminding you to video chat live from this journal so you can proceed to your meetings without complications.',
+                            )
+                        }
                     </motion.p>
                 </div>
                 <motion.img
@@ -88,7 +98,10 @@ export default function Home() {
                         whileInView={{ x: 0, opacity: 1 }}
                         viewport={{ once: true }}
                         className="mb-8 text-xl">
-                        The rich number of options to create interesting quizzes. Set time limits and passing grade, select from a number of predefined question types.
+                        {t(
+                            'تعدّ الاختبارات وسيلة من الوسائل المهمّة المستخدمة في قياس وتقويم قدرات الطلاب، ومعرفة ما وصّل إليه مستواهم التحصيلي، ومن ناحية أخرى تساعد في معرفة مدى تحقق الأهداف السلوكية، أوالنواتج التعليميّة المطلوبة، وما يقوم به المعلم من نشاطات تعليمية، كمّا تساعد على رفع المستويات التحصيلية عند الطلاب، لهذا من الضروري أن تتّصف هذه الاختبارات بالكفاءة العالية في عملية القياس والتقويم، ويمكن الوصول لهذه الكفاءة، عن طريق إعداد اختبارات نموذجيّة، وصحيحة.',
+                            'Tests are one of the important means used in measuring and evaluating students\' abilities, and knowing what their achievement level has reached. Students, for this it is necessary that these tests be characterized by high efficiency in the process of measurement and evaluation, and this efficiency can be reached, by preparing standard and correct tests.'
+                        )}
                     </motion.p>
                     <motion.img
                         initial={{ y: 300, opacity: 0, scale: 1 }}
@@ -101,43 +114,7 @@ export default function Home() {
                 </div>
             </section>
             {/** assignments */}
-            <section className="container py-16 grid grid-rows-auto text-center lg:text-align-inherit lg:grid-cols-2 items-center gap-8">
-                <motion.video
-                    initial={{ x: -300, opacity: 0 }}
-                    transition={{ duration: 1, type: 'spring' }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="shadow-xl w-full"
-                    loop muted playsInline preload="none" autoPlay>
-                    <source src="./videos/assignments.mp4" type="video/mp4" />
-                </motion.video>
-                <div>
-                    <motion.h3
-                        initial={{ y: -300, opacity: 0 }}
-                        transition={{ duration: 3, type: 'spring' }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="text-3xl md:text-4xl lg:text-5xl  mb-8 font-bold uppercase">
-                        {t('الاختبارات', 'Assignments')}
-                    </motion.h3>
-                    <motion.p
-                        initial={{ x: 300, opacity: 0 }}
-                        transition={{ duration: 3, type: 'spring' }}
-                        whileInView={{ x: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="text-xl font-[500] mb-8">
-                        Add two types of assignments to lessons: uploads and essays. Check student’s work, grade their performance and leave notes. Give them more freedom to boast of their knowledge.
-                    </motion.p>
-                    <motion.button
-                        initial={{ y: 100, opacity: 0 }}
-                        transition={{ duration: 3, type: 'spring' }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="btn">
-                        Show
-                    </motion.button>
-                </div>
-            </section>
+            <Contact />
         </>
     )
 }

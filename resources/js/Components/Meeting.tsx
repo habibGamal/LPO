@@ -1,19 +1,15 @@
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Meeting as MeetingModel } from '../Models/Meeting';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Button, DatePicker, Form, Input, Select, Upload, UploadFile, UploadProps, message, Popconfirm } from 'antd';
-import { Link, usePage } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia';
-import { Option } from 'antd/lib/mentions';
 import moment from 'moment';
-import { ContextApi } from '../Contexts/AppContext';
-import useFlashMessage from '../Hooks/useFlashMessage';
 export default function Meeting({ meeting = null }: { meeting?: MeetingModel | null }) {
     const [form] = Form.useForm();
-    const flashMessage = useFlashMessage();
     const { errors } = usePage().props;
     const [loading, setLoading] = useState(false);
     const [fileList, setFileList] = useState<UploadFile[]>(
@@ -39,15 +35,14 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
             setFileList(newFileList);
         },
         onRemove: (file) => {
-            if (file.uid.includes('existing-asset-'))
-                setRemovedAssets(assets => [...assets, file.name])
+            setRemovedAssets(assets => [...assets, file.name])
         }
     };
     // form submit
     const store = (values: any) => {
         Inertia.post('/meetings', {
             ...values,
-            date: values?.date?._d,
+            date: values?.date ? values.date.format('YYYY-MM-DD') : null,
             assets: fileList.map(file => file.originFileObj),
         }, {
             errorBag: '-1',
@@ -58,7 +53,7 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
                 form.resetFields();
                 setFileList([]);
             },
-            onProgress: () => {
+            onProgress: (v) => {
                 setLoading(true)
             },
             onFinish: () => {
@@ -72,7 +67,7 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
             assets:
                 (fileList.filter(file => !file.uid.includes('existing-asset-')))
                     .map(file => file.originFileObj),
-            date: values?.date?._d,
+            date: values?.date?.format('YYYY-MM-DD'),
             removedAssets,
             _method: 'put'
         }
@@ -94,6 +89,7 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
     };
 
     const getErrors = () => meeting ? errors?.[`${meeting.id}`] : errors?.['-1'];
+
     return (
         <>
             <div className="rounded bg-gray-100 shadow-sm p-4">
@@ -164,7 +160,51 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
                             </Upload>
                         </>
                     </Form.Item>
-
+                    <Form.List
+                        name="videos"
+                        initialValue={meeting?.videos}
+                    >
+                        {(fields, { add, remove }, { errors }) => (
+                            <>
+                                {fields.map((field, index) => (
+                                    <Form.Item
+                                        label={`Video no ${index + 1}`}
+                                        required={true}
+                                        key={field.key}
+                                    >
+                                        <Form.Item
+                                            {...field}
+                                            validateTrigger={['onChange', 'onBlur']}
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    whitespace: true,
+                                                    message: "Please input embed code here",
+                                                },
+                                            ]}
+                                            noStyle
+                                        >
+                                            <Input placeholder="Embed code" style={{ width: '80%' }} />
+                                        </Form.Item>
+                                        <MinusCircleOutlined
+                                            className="dynamic-delete-button mx-2"
+                                            onClick={() => remove(field.name)}
+                                        />
+                                    </Form.Item>
+                                ))}
+                                <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+                                    <Button
+                                        type="dashed"
+                                        onClick={() => add()}
+                                        icon={<PlusOutlined />}
+                                    >
+                                        Add video
+                                    </Button>
+                                    <Form.ErrorList errors={errors} />
+                                </Form.Item>
+                            </>
+                        )}
+                    </Form.List>
                     <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                         <Button type="primary" htmlType="submit" loading={loading}>
                             Save

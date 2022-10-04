@@ -8,10 +8,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNavicon } from '@fortawesome/free-solid-svg-icons';
 import Auth from './Components/Auth';
 import NotAuth from './Components/NotAuth';
+import { Inertia } from '@inertiajs/inertia';
+import { message } from 'antd';
 
 export default function Layout(props: { children: JSX.Element }) {
     const { auth } = usePage().props;
-
+    useEffect(() => {
+        let loading: any;
+        Inertia.on('start', () => {
+            loading = message.loading('', 0);
+        })
+        Inertia.on('finish', () => {
+            setTimeout(loading)
+        })
+    }, [])
     const [showNav, setShowNav] = useState(false);
     const [appState, setAppState] = useContext(ContextApi)!;
     const hideNav = () => {
@@ -38,10 +48,10 @@ export default function Layout(props: { children: JSX.Element }) {
                             <NavLink onClick={hideNav} href="/images_show" name={t('الصور', 'Images')} />
                             <NavLink onClick={hideNav} href="/books" name={t('المواد', 'Material')} />
                             <NavLink onClick={hideNav} href="/articles" name={t('المقالات', 'Articles')} />
-                            <NavLink onClick={hideNav} href="/contact" name={t('تواصل معنا', 'Contact')} />
-                            <NavLink onClick={hideNav} href="/quiz" name={t('الامتحانات', 'Quiz')} />
                             <NavLink onClick={hideNav} href="/meetings" name={t('جلسات زووم', 'Zoom Meetings')} />
+                            <NavLink onClick={hideNav} href="/quiz" name={t('الامتحانات', 'Quiz')} />
                             <NavLink onClick={hideNav} href="/about-program" name={t('عن البرنامج', 'About Program')} />
+                            <NavLink onClick={hideNav} href="/contact" name={t('تواصل معنا', 'Contact')} />
                             <Auth>
                                 <NavLink onClick={hideNav} href="/dashboard" name={t('لوحة التحكم', 'Dashboard')} />
                                 <NavLink onClick={hideNav} href="/logout" name={t('تسجيل الخروج', 'Logout')} />

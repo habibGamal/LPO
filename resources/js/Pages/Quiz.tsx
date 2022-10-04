@@ -9,11 +9,16 @@ export default function Quiz() {
         <section className="bg-x-blue lg:py-16 py-4 text-white text-center">
             <div className="container max-w-[780px]">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl text-white font-bold uppercase mb-4">{t('نمازج امتحانات', 'Quiz Samples')}</h2>
-                <p className="mb-8 text-xl">The rich number of options to create interesting quizzes. Set time limits and passing grade, select from a number of predefined question types.</p>
+                <p className="mb-8 text-xl">
+                    {t(
+                        'تعدّ الاختبارات وسيلة من الوسائل المهمّة المستخدمة في قياس وتقويم قدرات الطلاب، ومعرفة ما وصّل إليه مستواهم التحصيلي، ومن ناحية أخرى تساعد في معرفة مدى تحقق الأهداف السلوكية، أوالنواتج التعليميّة المطلوبة، وما يقوم به المعلم من نشاطات تعليمية، كمّا تساعد على رفع المستويات التحصيلية عند الطلاب، لهذا من الضروري أن تتّصف هذه الاختبارات بالكفاءة العالية في عملية القياس والتقويم، ويمكن الوصول لهذه الكفاءة، عن طريق إعداد اختبارات نموذجيّة، وصحيحة.',
+                        'Tests are one of the important means used in measuring and evaluating students\' abilities, and knowing what their achievement level has reached. Students, for this it is necessary that these tests be characterized by high efficiency in the process of measurement and evaluation, and this efficiency can be reached, by preparing standard and correct tests.'
+                    )}
+                </p>
                 <img src="/images/quiz.png" alt="" />
                 <div className="flex flex-col gap-4 text-left mt-8">
-                    <QuizComponent name={t('الامتحان القبلي', 'Pre-exam')} onClick={()=>Inertia.get('/quiz/pre-exam')} />
-                    <QuizComponent name={t('الامتحان البعدي', 'Post-exam')} onClick={()=>Inertia.get('/quiz/post-exam')} />
+                    <QuizComponent name={t('الامتحان القبلي', 'Pre-exam')} onClick={() => Inertia.get('/quiz/pre-exam')} />
+                    <QuizComponent name={t('الامتحان البعدي', 'Post-exam')} onClick={() => Inertia.get('/quiz/post-exam')} />
                 </div>
             </div>
         </section>

@@ -31,6 +31,9 @@ body {
 .rtl * {
     direction: rtl;
 }
+.ltr , .ltr * {
+    direction: ltr;
+}
 @media (min-width: 1024px) {
     .lg\:text-align-inherit {
         text-align: inherit;
@@ -242,4 +245,16 @@ input[type="file"] {
 }
 .site-form-item-icon {
     color: rgba(0, 0, 0, 0.25);
+}
+.ant-message .anticon.anticon-loading.anticon-spin {
+    top:0;
+    margin-right: unset;
+}
+.anticon {
+    vertical-align: unset;
+}
+.meeting-iframe > iframe {
+    width: 100%;
+    height: unset;
+    aspect-ratio: 16 / 9;
 }

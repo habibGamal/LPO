@@ -1,97 +1,75 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import { ContextApi } from "../Contexts/AppContext";
+import useTranslate from "../Hooks/useTranslate";
 export default function AboutProgram() {
-    const [typeing, setTyping] = useState('');
-    const sentence =
-        `
-    البرنامج جزء من متطلبات الحصول على درجة دكتوراة في الفلسفة في التربية النوعية تخصص التربية الموسيقية ( بيانو )
-
-    تحت عنوان
-
-    " برنامج قائم على التعليم المدمج لرفع مستوى أداء الطلاب على آلة البيانو "
-    `
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTyping(
-                text => {
-                    if (text.length < sentence.length)
-                        return text + sentence[text.length]
-                    clearInterval(interval);
-                    return text;
-                }
-            )
-        }, 10)
-    }, []);
+    const t = useTranslate();
+    const [{ lang }] = useContext(ContextApi)!;
     return (
-        <div className="container rtl py-8">
-            <h1 className="text-4xl border-b-2 border-main w-fit pb-4 font-sans mx-auto mb-4 text-center">فكرة البرنامج</h1>
-            <h2 className="text-center text-3xl font-bold font-sans">م.م/ مها أحمد قاسم </h2>
+        <div className="container lg:text-align-inherit py-8">
+            <h1 className="text-4xl border-b-2 border-main w-fit pb-4 font-sans mx-auto mb-4 text-center">{t('فكرة البرنامج', 'Program idea')}</h1>
+            <h2 className="text-center text-3xl font-bold font-sans">{t('م.م/ مها أحمد قاسم ', 'Lect. Maha Ahmed Qassem')}</h2>
             <h3 className="text-3xl p-4 leading-tight border-2 rounded border-main bg-gray-50 w-fit pb-4 font-sans mx-auto my-8 text-center">
-                {typeing}
-                {/* `
+                {t(`
                 البرنامج جزء من متطلبات الحصول على درجة دكتوراة في الفلسفة في التربية النوعية تخصص التربية الموسيقية ( بيانو )
-                <br />
                 تحت عنوان
-                <br />
                 " برنامج قائم على التعليم المدمج لرفع مستوى أداء الطلاب على آلة البيانو "
-                ` */}
+                `, 'The program is part of the requirements for obtaining a Doctor of Philosophy degree in Specific Education, specializing in Music Education (Piano) under the title “A program based on blended learning to raise the level of students’ performance on the piano.”')}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-1 gap-8 ">
                 <div className="block">
-                    <h2 className="font-sans text-3xl bg-gray-100 p-2 px-3 w-fit border-r-4 border-main">تحت إشراف كلاً من</h2>
+                    <h2 className={`font-sans text-3xl bg-gray-100 p-2 px-3 w-fit ${lang === 'ar' ? 'border-r-4':'border-l-4'} border-main`}>{t('تحت إشراف كلاً من','Under the supervision of')}</h2>
                     <ul className="m-6 flex flex-col gap-4">
                         <IDCard
-                            name="أ.د/ علي حسين النجار"
-                            title="أستاذ الأداء ( البيانو ) بقسم التربية الموسيقية – كلية التربية النوعية – جامعة عين شمس"
+                            name={t('أ.د/ علي حسين النجار','Prof. Ali Hussein Al-Najjar')}
+                            title={t('أستاذ الأداء ( البيانو ) بقسم التربية الموسيقية – كلية التربية النوعية – جامعة عين شمس','Professor of performance (piano) at the Department of Music Education - Faculty of Specific Education - Ain Shams University')}
                         />
                         <IDCard
-                            name="أ.د/ أبرار مصطفى إبراهيم"
-                            title="أستاذ النظريات والتأليف بقسم التربية الموسيقية ووكيل شئون التعليم والطلاب – كلية التربية النوعية
-                            جامعة أسيوط"
+                            name={t('أ.د/ أبرار مصطفى إبراهيم','Prof. Abrar Mustafa Ibrahim')}
+                            title={t('أستاذ النظريات والتأليف بقسم التربية الموسيقية ووكيل شئون التعليم والطلاب – كلية التربية النوعية جامعة أسيوط','Professor of Theory and Composition, Department of Music Education and Vice Dean for Education and Student Affairs - Faculty of Specific Education, Assiut University')}
                         />
                         <IDCard
-                            name="د/ سعد حسن"
-                            title="مدرس تكنولوجيا التعليم – بقسم تكنولوجيا التعليم – كلية التربية النوعية – جامعة أسيوط"
+                            name={t('د/ سعد حسن','Dr. Saad Hassan')}
+                            title={t('مدرس تكنولوجيا التعليم – بقسم تكنولوجيا التعليم – كلية التربية النوعية – جامعة أسيوط','Instructor of Educational Technology - Department of Educational Technology - Faculty of Specific Education - Assiut University')}
                         />
                     </ul>
                 </div>
                 <div className="block">
-                    <h2 className="font-sans text-3xl bg-gray-100 p-2 px-3 w-fit border-r-4 border-main">وتحت رعاية كلاً من</h2>
+                    <h2 className={`font-sans text-3xl bg-gray-100 p-2 px-3 w-fit ${lang === 'ar' ? 'border-r-4':'border-l-4'} border-main`}>{t('وتحت رعاية كلاً من','Under the auspices of')}</h2>
                     <ul className="m-6 flex flex-col gap-4">
                         <IDCard
-                            name="أ.د/ وجدي رفعت فريد"
-                            title="أستاذ الأشغال الفنية والتراث الشعبي بقسم التربية الفنية وعميد كلية التربية النوعية – جامعة أسيوط"
+                            name={t('أ.د/ وجدي رفعت فريد','Prof. Wagdy Refaat Farid')}
+                            title={t('أستاذ الأشغال الفنية والتراث الشعبي بقسم التربية الفنية وعميد كلية التربية النوعية – جامعة أسيوط','Professor of Artistic Works and Folklore at the Department of Art Education and Dean of the Faculty of Specific Education - Assiut University')}
                         />
                         <IDCard
-                            name="أ.د/ محمد جلال علي"
-                            title="أستاذ النحت بقسم التربية الفنية ووكيل الكلية لشئون الدراسات العليا والبحوث بكلية التربية النوعية جامعة أسيوط"
+                            name={t('أ.د/ محمد جلال علي','Prof. Dr. Muhammad Jalal Ali')}
+                            title={t('أستاذ النحت بقسم التربية الفنية ووكيل الكلية لشئون الدراسات العليا والبحوث بكلية التربية النوعية جامعة أسيوط','Professor of Sculpture, Department of Art Education and Vice Dean for Graduate Studies and Research Affairs, Faculty of Specific Education, Assiut University')}
                         />
                         <IDCard
-                            name="أ.د/ أبرار مصطفى إبراهيم "
-                            title="أستاذ النظريات والتأليف بقسم التربية الموسيقية ووكيل شئون التعليم والطلاب – كلية التربية النوعية
-                            جامعة أسيوط"
+                            name={t('أ.د/ أبرار مصطفى إبراهيم ','Prof. Abrar Mustafa Ibrahim')}
+                            title={t('أستاذ النظريات والتأليف بقسم التربية الموسيقية ووكيل شئون التعليم والطلاب – كلية التربية النوعيةجامعة أسيوط','Professor of Theory and Composition, Department of Music Education and Vice Dean for Education and Student Affairs - Faculty of Specific Education, Assiut University')}
                         />
                     </ul>
                 </div>
                 <div className="block">
-                    <h2 className="font-sans text-3xl bg-gray-100 p-2 px-3 w-fit border-r-4 border-main">ويسعدني أن أشكر كلاً من</h2>
+                    <h2 className={`font-sans text-3xl bg-gray-100 p-2 px-3 w-fit ${lang === 'ar' ? 'border-r-4':'border-l-4'} border-main`}>{t('ويسعدني أن أشكر كلاً من','I am happy to thank both')}</h2>
                     <ul className="m-6 flex flex-col gap-4">
                         <IDCard
-                            name="أ.م.د/ رويدا صابر أحمد "
-                            title="أستاذ النظريات والتأليف المساعد بقسم التربية الموسيقية – كلية التربية النوعية-  جامعة أسيوط "
-                            highlight="على ماقدمته لي من دعم ومساعدة خلال تنفيذ البرنامج"
+                            name={t('أ.م.د/ رويدا صابر أحمد ','Prof. Dr. Rowaida Saber Ahmed')}
+                            title={t('أستاذ النظريات والتأليف المساعد بقسم التربية الموسيقية – كلية التربية النوعية-  جامعة أسيوط ','Assistant Professor of Theory and Composition, Department of Music Education, Faculty of Specific Education, Assiut University')}
+                            highlight={t('على ماقدمته لي من دعم ومساعدة خلال تنفيذ البرنامج','For the support and assistance you provided me during the implementation of the program')}
                         />
                         <IDCard
-                            name="م/ فكتور اميل سعيد"
-                            title="Sound Engineering"
+                            name={t('م/ فكتور اميل سعيد','Eng/ Victor Emile Said')}
+                            title={t('Sound Engineering','Sound Engineering')}
                         />
                         <IDCard
-                            name="م/ حبيب جمال حبيب"
-                            title="Web Developer"
+                            name={t('م/ حبيب جمال حبيب','Eng/ Habib Jamal Habib')}
+                            title={t('Web Developer','Web Developer')}
                         />
                         <IDCard
-                            name="م/ روبرتو أيمن إيميل"
-                            title="Graphic Designer, Monterey"
+                            name={t('م/ روبرتو أيمن إيميل','Eng/ Roberto Ayman Email')}
+                            title={t('Graphic Designer, Monterey','Graphic Designer, Monterey')}
                         />
                     </ul>
                 </div>
