@@ -62,6 +62,8 @@ export default function Meeting({ meeting = null }: { meeting?: MeetingModel | n
         })
     };
     const update = (values: any) => {
+        console.log(values);
+
         const data = {
             ...values,
             assets:

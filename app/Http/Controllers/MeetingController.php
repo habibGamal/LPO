@@ -51,13 +51,19 @@ class MeetingController extends Controller
         if ($request->hasFile('assets'))
             foreach ($request->file('assets') as $imagefile)
                 $assetsNames[] = saveImageAndGetPath($imagefile);
+
+        // videos
+        $videos = $request->input('videos');
+        if($videos == null){
+            $videos = [];
+        }
         Meeting::create([
             'name' => $request->input('name'),
             'link' => $request->input('meeting_link'),
             'date' => $request->input('date'),
             'state' => $request->input('state'),
             'assets' => json_encode($assetsNames),
-            'videos' => json_encode($request->input('videos')),
+            'videos' => json_encode($videos),
         ]);
         return Redirect::route('meetings.create');
     }
@@ -118,13 +124,17 @@ class MeetingController extends Controller
         $assetsNamesArray = [];
         foreach ($assetsNames as $key => $value)
             $assetsNamesArray[] = $value;
-
+        // videos
+        $videos = $request->input('videos');
+        if($videos == null){
+            $videos = [];
+        }
         $meeting->name = $request->input('name');
         $meeting->link = $request->input('meeting_link');
         $meeting->date = $request->input('date');
         $meeting->state = $request->input('state');
         $meeting->assets = json_encode($assetsNamesArray);
-        $meeting->videos = json_encode($request->input('videos'));
+        $meeting->videos = json_encode($videos);
         $meeting->save();
         return Redirect::route('meetings.create');
     }
