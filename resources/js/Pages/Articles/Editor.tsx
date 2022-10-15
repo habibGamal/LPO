@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import JoditEditor from "jodit-react";
-import { Button, Form, Input, Upload, UploadFile, UploadProps } from 'antd';
+import { Button, Form, Input, Select, Upload, UploadFile, UploadProps } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { Inertia } from '@inertiajs/inertia'
@@ -63,7 +63,7 @@ export default function Editor({ articleDB = undefined }: { articleDB?: ArticleD
     };
 
     return (
-        <div className="container my-16">
+        <div className="container my-16 ltr">
             <div className="mx-auto">
                 <Form
                     name="basic"
@@ -109,6 +109,19 @@ export default function Editor({ articleDB = undefined }: { articleDB?: ArticleD
                         initialValue={article?.description || ''}
                     >
                         <Input.TextArea allowClear showCount />
+                    </Form.Item>
+                    <Form.Item
+                        name="language"
+                        label="Language"
+                        rules={[{ message: '' }]}
+                        validateStatus={errors?.language && 'error'}
+                        help={errors?.language}
+                        initialValue={article?.language || 'ar'}
+                    >
+                        <Select placeholder="Select language"  >
+                            <Select.Option value="ar">Arabic</Select.Option>
+                            <Select.Option value="en">English</Select.Option>
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         name="content"

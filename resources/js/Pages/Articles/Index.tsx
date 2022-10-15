@@ -1,14 +1,16 @@
-import React from 'react'
-import { EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import React, { useContext } from 'react'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Card, Popconfirm } from 'antd';
 import { Article, ArticleDB } from '../../Models/Article';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { motion } from "framer-motion"
 import { Inertia } from '@inertiajs/inertia';
 import useTranslate from '../../Hooks/useTranslate';
+import { ContextApi } from '../../Contexts/AppContext';
 export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
     const { Meta } = Card;
-    const articles = articlesDB.map(article => new Article(article));
+    const [{lang}] = useContext(ContextApi)!
+    const articles = (articlesDB.filter(article=>article.language === lang)).map(article => new Article(article));
     const { auth } = usePage().props;
     const t = useTranslate();
     return (
@@ -45,7 +47,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                             src={article.cover}
                                         />
                                     }
-                                    dir="rtl"
+                                    dir={lang === 'ar'?'rtl':'ltr'}
                                     actions={auth ? [
                                         <Popconfirm
                                             title="Are you sure to delete this article?"

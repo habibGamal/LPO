@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class StoreArticleRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'cover' => ['required', 'image'],
+            'language' => ['required', Rule::in(['ar', 'en'])],
             'content' => ['required']
         ];
     }

@@ -10,7 +10,7 @@ export default function Single({ articleDB }: { articleDB: ArticleDB }) {
                 <img className="h-full w-full object-cover object-center" src={article.cover} />
             </div>
             <h2 className="text-3xl font-bold my-8 text-center">{article.title}</h2>
-            <div className="rtl">
+            <div className={article.language === 'ar' ? 'rtl':''}>
                 <Interweave content={article.content} />
             </div>
         </div>

@@ -73,9 +73,7 @@ export default function Layout(props: { children: JSX.Element }) {
                 {props.children}
             </div>
             <footer className="bg-black text-white p-4 text-center">
-                All Copyrights &copy; reserved for Turing company {(new Date()).getFullYear()}
-                <br />
-                Eng.Habib Gamal
+                All Copyrights &copy; reserved for Dr. Maha Ahmed Qassem & Eng. Habib Gamal {(new Date()).getFullYear()}
             </footer>
         </div>
     )

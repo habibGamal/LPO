@@ -13,6 +13,7 @@ class Article extends Model
         'title',
         'cover',
         'description',
-        'content'
+        'content',
+        'language',
     ];
 }

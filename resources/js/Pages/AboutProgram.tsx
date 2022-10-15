@@ -29,21 +29,8 @@ export default function AboutProgram() {
                             title={t('أستاذ النظريات والتأليف بقسم التربية الموسيقية ووكيل شئون التعليم والطلاب – كلية التربية النوعية جامعة أسيوط','Professor of Theory and Composition, Department of Music Education and Vice Dean for Education and Student Affairs - Faculty of Specific Education, Assiut University')}
                         />
                         <IDCard
-                            name={t('د/ سعد حسن','Dr. Saad Hassan')}
+                            name={t('د/ سعد حسن محي الدين','Dr. Saad Hassan Mohie Eldin')}
                             title={t('مدرس تكنولوجيا التعليم – بقسم تكنولوجيا التعليم – كلية التربية النوعية – جامعة أسيوط','Instructor of Educational Technology - Department of Educational Technology - Faculty of Specific Education - Assiut University')}
-                        />
-                    </ul>
-                </div>
-                <div className="block">
-                    <h2 className={`font-sans text-3xl bg-gray-100 p-2 px-3 w-fit ${lang === 'ar' ? 'border-r-4':'border-l-4'} border-main`}>{t('وتحت رعاية كلاً من','Under the auspices of')}</h2>
-                    <ul className="m-6 flex flex-col gap-4">
-                        <IDCard
-                            name={t('أ.د/ وجدي رفعت فريد','Prof. Wagdy Refaat Farid')}
-                            title={t('أستاذ الأشغال الفنية والتراث الشعبي بقسم التربية الفنية وعميد كلية التربية النوعية – جامعة أسيوط','Professor of Artistic Works and Folklore at the Department of Art Education and Dean of the Faculty of Specific Education - Assiut University')}
-                        />
-                        <IDCard
-                            name={t('أ.د/ محمد جلال علي','Prof. Dr. Muhammad Jalal Ali')}
-                            title={t('أستاذ النحت بقسم التربية الفنية ووكيل الكلية لشئون الدراسات العليا والبحوث بكلية التربية النوعية جامعة أسيوط','Professor of Sculpture, Department of Art Education and Vice Dean for Graduate Studies and Research Affairs, Faculty of Specific Education, Assiut University')}
                         />
                         <IDCard
                             name={t('أ.د/ أبرار مصطفى إبراهيم ','Prof. Abrar Mustafa Ibrahim')}
@@ -51,6 +38,7 @@ export default function AboutProgram() {
                         />
                     </ul>
                 </div>
+
                 <div className="block">
                     <h2 className={`font-sans text-3xl bg-gray-100 p-2 px-3 w-fit ${lang === 'ar' ? 'border-r-4':'border-l-4'} border-main`}>{t('ويسعدني أن أشكر كلاً من','I am happy to thank both')}</h2>
                     <ul className="m-6 flex flex-col gap-4">

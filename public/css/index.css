@@ -27944,6 +27944,12 @@ html {
 .z-40{
   z-index: 40;
 }
+.col-span-3{
+  grid-column: span 3 / span 3;
+}
+.col-span-1{
+  grid-column: span 1 / span 1;
+}
 .m-4{
   margin: 1rem;
 }
@@ -28045,9 +28051,6 @@ html {
 }
 .min-h-\[550px\]{
   min-height: 550px;
-}
-.min-h-\[400px\]{
-  min-height: 400px;
 }
 .w-\[50px\]{
   width: 50px;
@@ -28229,6 +28232,10 @@ html {
 .bg-main{
   --tw-bg-opacity: 1;
   background-color: rgb(242 50 118 / var(--tw-bg-opacity));
+}
+.bg-gray-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 .object-contain{
   -o-object-fit: contain;
@@ -28461,6 +28468,10 @@ body {
 
 .rtl * {
   direction: rtl;
+}
+
+.ltr {
+  text-align: left;
 }
 
 .ltr, .ltr * {
@@ -28741,6 +28752,12 @@ input[type=file] {
   aspect-ratio: 16/9;
 }
 
+.book-video-iframe > iframe {
+  width: 100%;
+  height: unset;
+  aspect-ratio: 16/9;
+}
+
 .focus-within\:outline-second:focus-within{
   outline-color: #195cc5;
 }
@@ -28801,9 +28818,6 @@ input[type=file] {
 }
 
 @media (min-width: 1024px){
-  .lg\:col-span-3{
-    grid-column: span 3 / span 3;
-  }
   .lg\:mb-8{
     margin-bottom: 2rem;
   }

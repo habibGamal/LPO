@@ -4,6 +4,7 @@ export type ArticleDB = {
     cover: string,
     description: string,
     content: string,
+    language:string,
     created_at: string,
     updated_at: string,
 }
@@ -14,12 +15,14 @@ export class Article {
     private _cover: string;
     public description: string;
     public content: string;
+    public language: string;
     constructor(article: ArticleDB) {
         this.id = article.id;
         this.title = article.title;
         this._cover = article.cover;
         this.description = article.description;
         this.content = article.content;
+        this.language = article.language;
     }
     public get cover() {
         return '/storage/images/' + this._cover;

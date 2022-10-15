@@ -17,6 +17,8 @@ export default function Index({ booksDB }: { booksDB: BookDB[] }) {
         if (book.videos.length > 0) {
             setCurrentBook(book)
             setScreen(Screen.Videos);
+        }else{
+            window.open(book.pdf,'_blank');
         }
     }
     const toBooks = () => {
@@ -64,18 +66,18 @@ const VideosScreen = ({ book }: { book: Book }) => {
     const [currentVideo, setCurrentVideo] = useState(book.videos[0].link);
     return (
         <>
-            <div className="grid grid-rows-auto lg:grid-cols-4 gap-4">
-                <iframe title="viemo" className="lg:col-span-3 w-full h-full min-h-[400px]" src={currentVideo} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
-                <div className="rounded overflow-hidden shadow-dark-50">
+            <div className="grid lg:grid-cols-4 gap-4">
+                <div className="book-video-iframe col-span-3" dangerouslySetInnerHTML={{ __html: currentVideo }} />
+                <div className="rounded overflow-hidden shadow-dark-50 col-span-1">
                     <h4 className="p-6 text-2x font-normal bg-gray-200">List of Videos</h4>
                     <ul className="bg-gray-50 ">
                         {
-                            book.videos.map((video, i) => <Video key={i} name={video.name} onClick={() => setCurrentVideo(video.link)} active={true} />)
+                            book.videos.map((video, i) => <Video key={i} name={video.name} onClick={() => setCurrentVideo(video.link)} active={currentVideo === video.link} />)
                         }
                     </ul>
                 </div>
             </div>
-            <button className="btn block my-4 mx-auto">Download PDF</button>
+            <a className="btn block my-4 mx-auto w-fit hover:text-white" href={book.pdf} target="_blank">Download PDF</a>
         </>
     )
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateArticleRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class UpdateArticleRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'cover' => ['nullable', 'image'],
+            'language' => ['required', Rule::in(['ar', 'en'])],
             'content' => ['required']
         ];
     }

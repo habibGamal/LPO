@@ -23,7 +23,8 @@ class ArticleController extends Controller
                 'id',
                 'title',
                 'cover',
-                'description'
+                'description',
+                'language',
             ]),
         ]);
     }
@@ -52,6 +53,7 @@ class ArticleController extends Controller
             'title' => $validated['title'],
             'cover' => $path,
             'description' => $validated['description'],
+            'language' => $validated['language'],
             'content' => $validated['content']
         ]);
         return Redirect::route('articles.index');
@@ -99,6 +101,7 @@ class ArticleController extends Controller
         // update other fields
         $article->title = $validated['title'];
         $article->description = $validated['description'];
+        $article->language = $validated['language'];
         $article->content = $validated['content'];
         $article->save();
         // return to index page

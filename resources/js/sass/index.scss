@@ -31,6 +31,9 @@ body {
 .rtl * {
     direction: rtl;
 }
+.ltr {
+    text-align: left;
+}
 .ltr , .ltr * {
     direction: ltr;
 }
@@ -254,6 +257,12 @@ input[type="file"] {
     vertical-align: unset;
 }
 .meeting-iframe > iframe {
+    width: 100%;
+    height: unset;
+    aspect-ratio: 16 / 9;
+}
+
+.book-video-iframe > iframe {
     width: 100%;
     height: unset;
     aspect-ratio: 16 / 9;
