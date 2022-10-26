@@ -5,7 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\MeetingController;
+use App\Mail\Feedback;
 use App\Models\Exam;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -52,6 +56,18 @@ Route::get('/meetings/{meeting}', [MeetingController::class, 'show'])->name('mee
 
 Route::get('/contact', function () {
     return Inertia::render('Contact');
+});
+
+Route::get('/feedback', function () {
+    return Inertia::render('Feedback');
+});
+
+Route::post('/feedback',function (Request $request){
+    $request->validate([
+        'feedback'=>'required|string'
+    ]);
+    Mail::to('amaha6090@gmail.com')->send(new Feedback($request->feedback));
+    return Redirect::back();
 });
 
 Route::prefix('/quiz')->group(function () {

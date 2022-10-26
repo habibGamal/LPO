@@ -48,7 +48,7 @@ export default function AboutProgram() {
                             highlight={t('على ماقدمته لي من دعم ومساعدة خلال تنفيذ البرنامج','For the support and assistance you provided me during the implementation of the program')}
                         />
                         <IDCard
-                            name={t('م/ فكتور اميل سعيد','Eng/ Victor Emile Said')}
+                            name={t('م/ فكتور اميل سعيد','Eng/ Victor Emil Said')}
                             title={t('Sound Engineering','Sound Engineering')}
                         />
                         <IDCard
@@ -56,7 +56,7 @@ export default function AboutProgram() {
                             title={t('Web Developer','Web Developer')}
                         />
                         <IDCard
-                            name={t('م/ روبرتو أيمن إيميل','Eng/ Roberto Ayman Email')}
+                            name={t('م/ روبرتو أيمن إيميل','Eng/ Roberto Ayman Emil')}
                             title={t('Graphic Designer, Monterey','Graphic Designer, Monterey')}
                         />
                     </ul>

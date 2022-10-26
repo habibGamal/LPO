@@ -43,6 +43,7 @@ export default function Index({ articlesDB }: { articlesDB: ArticleDB[] }) {
                                     style={{ width: 300 }}
                                     cover={
                                         <img
+                                            className="h-[210px] object-cover"
                                             alt="example"
                                             src={article.cover}
                                         />

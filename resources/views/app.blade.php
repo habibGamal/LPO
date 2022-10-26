@@ -6,6 +6,7 @@
     <link href="{{ mix('/css/index.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/app.js') }}" defer></script>
     <title>Learning Piano Online</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
   </head>
   <body>
     @inertia
