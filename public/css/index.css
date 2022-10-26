@@ -28149,6 +28149,9 @@ html {
 .gap-12{
   gap: 3rem;
 }
+.gap-1{
+  gap: 0.25rem;
+}
 .overflow-hidden{
   overflow: hidden;
 }

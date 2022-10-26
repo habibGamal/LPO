@@ -55,29 +55,33 @@ export default function Layout(props: { children: JSX.Element }) {
                         <Link href='/'>
                             <img className='w-[50px]' src='/images/logo.png' />
                         </Link>
-                        <ul className={`${showNav ? 'flex' : 'hidden'} ${appState.lang === 'ar' ? 'left-10' : 'right-10'}  nav shadow 2xl:shadow-none 2xl:items-center items-start 2xl:flex gap-6 font-bold`}>
-                            <NavLink onClick={hideNav} href="/" name={t('الرئيسية', 'Home')} />
-                            <NavLink onClick={hideNav} href="/about" name={t('عنا', 'About')} />
-                            <NavLink onClick={hideNav} href="/images_show" name={t('الصور', 'Images')} />
-                            <NavLink onClick={hideNav} href="/books" name={t('المواد', 'Material')} />
-                            <NavLink onClick={hideNav} href="/articles" name={t('معلومات عن البيانو', 'Piano Info')} />
-                            <NavLink onClick={hideNav} href="/meetings" name={t('جلسات زووم', 'Zoom Meetings')} />
-                            <NavLink onClick={hideNav} href="/quiz" name={t('الامتحانات', 'Quiz')} />
-                            <NavLink onClick={hideNav} href="/about-program" name={t('عن البرنامج', 'About Program')} />
-                            <NavLink onClick={hideNav} href="/contact" name={t('تواصل معنا', 'Contact')} />
-                            <NavLink onClick={hideNav} href="/feedback" name={t('انطباعك', 'Feedback')} />
-                            <Auth>
-                                <NavLink onClick={hideNav} href="/dashboard" name={t('لوحة التحكم', 'Dashboard')} />
-                                <NavLink onClick={hideNav} href="/logout" name={t('تسجيل الخروج', 'Logout')} />
-                            </Auth>
-                            <NotAuth>
-                                <NavLink onClick={hideNav} href="/login" name={t('تسجيل الدخول', 'Login')} />
-                            </NotAuth>
-                            <li> <Button onClick={toggleLanguage} icon={<FontAwesomeIcon size='2x' icon={faEarth} />} /> </li>
-                        </ul>
-                        <button id='navbars' className='2xl:hidden' onClick={() => setShowNav(!showNav)}>
-                            <FontAwesomeIcon icon={faNavicon} size="2x" />
-                        </button>
+                        <div className="flex gap-4 items-center">
+                            <ul className={`${showNav ? 'flex' : 'hidden'} ${appState.lang === 'ar' ? 'left-10' : 'right-10'}  nav shadow 2xl:shadow-none 2xl:items-center items-start 2xl:flex gap-6 font-bold`}>
+                                <NavLink onClick={hideNav} href="/" name={t('الرئيسية', 'Home')} />
+                                <NavLink onClick={hideNav} href="/about" name={t('عنا', 'About')} />
+                                <NavLink onClick={hideNav} href="/images_show" name={t('الصور', 'Images')} />
+                                <NavLink onClick={hideNav} href="/books" name={t('المواد', 'Material')} />
+                                <NavLink onClick={hideNav} href="/articles" name={t('معلومات عن البيانو', 'Piano Info')} />
+                                <NavLink onClick={hideNav} href="/meetings" name={t('جلسات زووم', 'Zoom Meetings')} />
+                                <NavLink onClick={hideNav} href="/quiz" name={t('الامتحانات', 'Quiz')} />
+                                <NavLink onClick={hideNav} href="/about-program" name={t('عن البرنامج', 'About Program')} />
+                                <NavLink onClick={hideNav} href="/contact" name={t('تواصل معنا', 'Contact')} />
+                                <NavLink onClick={hideNav} href="/feedback" name={t('انطباعك', 'Feedback')} />
+                                <Auth>
+                                    <NavLink onClick={hideNav} href="/dashboard" name={t('لوحة التحكم', 'Dashboard')} />
+                                    <NavLink onClick={hideNav} href="/logout" name={t('تسجيل الخروج', 'Logout')} />
+                                </Auth>
+                                <NotAuth>
+                                    <NavLink onClick={hideNav} href="/login" name={t('تسجيل الدخول', 'Login')} />
+                                </NotAuth>
+                            </ul>
+                            <div id="navbars" className="flex items-center gap-4">
+                                <Button onClick={toggleLanguage} icon={<FontAwesomeIcon size='2x' icon={faEarth} />} />
+                                <button id='n1avbars' className='2xl:hidden' onClick={() => setShowNav(!showNav)}>
+                                    <FontAwesomeIcon icon={faNavicon} size="2x" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </nav>
                 {props.children}
